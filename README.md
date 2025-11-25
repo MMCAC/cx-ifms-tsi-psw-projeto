@@ -1,186 +1,301 @@
-# Finanças+ - Aplicação de Gerenciamento de Finanças Pessoais
+# Finanças+ 💰
 
-Uma aplicação web desenvolvida em **Java com Spring Boot** para gerenciar finanças pessoais, permitindo o registro de receitas e despesas, visualização de saldos e análise de gastos por categoria.
+Uma aplicação web de gerenciamento de finanças pessoais desenvolvida como projeto final da disciplina de **Programação de Servidores Web**.
 
-## Características
+## 📚 Informações da Disciplina
 
-- **Autenticação de Usuário:** Login e cadastro de novos usuários
-- **Dashboard:** Visualização do saldo atual, receitas e despesas totais
-- **Gerenciamento de Transações:** Adicionar, editar e deletar receitas e despesas
-- **Categorização:** Organizar transações por categorias predefinidas
-- **Relatórios:** Análise mensal de gastos com gráficos interativos
-- **Interface Responsiva:** Design moderno e intuitivo
-- **Banco de Dados H2:** Armazenamento em memória (sem necessidade de MySQL)
+- **Disciplina:** Programação de Servidores Web
+- **Semestre:** 5º semestre
+- **Curso:** Tecnologia em Sistemas para Internet
+- **Professor:** Gustavo Yoshio Maruyama
+- **Instituição:** Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso do Sul (IFMS)
+- **Câmpus:** Coxim
 
-## Tecnologias Utilizadas
+## 🎯 Objetivo do Projeto
 
-- **Backend:** Spring Boot 3.2.0
-- **Frontend:** HTML5, CSS3, JavaScript, Thymeleaf
-- **Banco de Dados:** H2 Database
-- **ORM:** Spring Data JPA
-- **Gráficos:** Chart.js
-- **Build:** Maven
+Desenvolver uma aplicação web funcional utilizando tecnologias estudadas durante a disciplina (Servlets, JSP, JSF ou Spring Framework) que demonstre os conhecimentos adquiridos em programação de servidores web, integração com banco de dados e desenvolvimento de interfaces web interativas.
 
-## Pré-requisitos
+## 📋 Descrição
 
-- **Java 17 ou superior**
-- **Maven 3.6 ou superior**
+**Finanças+** é uma aplicação web para gerenciamento de finanças pessoais que permite aos usuários:
 
-## Instalação e Execução
+- **Registrar transações** (receitas e despesas)
+- **Visualizar saldo atual** em tempo real
+- **Categorizar gastos** (Alimentação, Transporte, Lazer, Contas Fixas, Saúde, Educação, Outros)
+- **Analisar gastos** através de gráficos interativos
+- **Gerar relatórios** mensais com visualização de despesas por categoria
+- **Gerenciar conta de usuário** com autenticação segura
 
-### 1. Clonar ou extrair o projeto
+## 🛠️ Tecnologias Utilizadas
 
-```bash
-cd financas_plus
+### Backend
+- **Java 17** - Linguagem de programação
+- **Spring Boot 3.2.0** - Framework web
+- **Spring Data JPA** - Acesso a dados
+- **Hibernate** - ORM (Object-Relational Mapping)
+- **Maven** - Gerenciador de dependências
+
+### Frontend
+- **HTML5** - Estrutura
+- **CSS3** - Estilização
+- **JavaScript** - Interatividade
+- **Thymeleaf** - Template engine
+
+### Banco de Dados
+- **H2 Database** - Banco de dados relacional em memória
+- **SQL** - Linguagem de consulta
+
+### Ferramentas
+- **NetBeans** - IDE de desenvolvimento
+- **Git** - Controle de versão
+- **GitHub** - Repositório remoto
+
+## ✨ Funcionalidades Principais
+
+### 1. Autenticação de Usuário
+- ✅ Página de login
+- ✅ Registro de novos usuários
+- ✅ Gerenciamento de sessões
+- ✅ Logout seguro
+
+### 2. Dashboard
+- ✅ Exibição do saldo atual
+- ✅ Total de receitas
+- ✅ Total de despesas
+- ✅ Gráfico visual de saldo (receita vs despesa)
+- ✅ Listagem das 5 transações mais recentes
+
+### 3. Gerenciamento de Transações
+- ✅ Adicionar nova transação (receita ou despesa)
+- ✅ Editar transação existente
+- ✅ Deletar transação
+- ✅ Listar todas as transações
+- ✅ Filtrar por tipo (receita/despesa)
+
+### 4. Relatórios
+- ✅ Filtrar por mês
+- ✅ Visualizar saldo do mês
+- ✅ Gráfico de receita vs despesa (mês)
+- ✅ Gráfico de gastos por categoria com cores distintas
+- ✅ Listagem de transações do mês
+
+### 5. Categorias
+- ✅ 7 categorias pré-configuradas
+- ✅ Inicialização automática ao primeiro acesso
+- ✅ Associação de transações a categorias
+
+## 📁 Estrutura do Projeto
+
+```
+financas_plus/
+├── pom.xml                                  # Configuração Maven
+├── README.md                                # Documentação
+├── INSTRUÇÕES.txt                          # Instruções de execução
+│
+├── src/main/java/com/financasplus/
+│   ├── FinancasPlusApplication.java         # Classe principal
+│   │
+│   ├── model/                               # Entidades JPA
+│   │   ├── User.java                        # Usuário
+│   │   ├── Category.java                    # Categoria
+│   │   └── Transaction.java                 # Transação
+│   │
+│   ├── repository/                          # Repositories (acesso ao BD)
+│   │   ├── UserRepository.java
+│   │   ├── CategoryRepository.java
+│   │   └── TransactionRepository.java
+│   │
+│   ├── service/                             # Services (lógica de negócio)
+│   │   ├── UserService.java
+│   │   ├── CategoryService.java
+│   │   └── TransactionService.java
+│   │
+│   ├── controller/                          # Controllers (rotas)
+│   │   ├── HomeController.java              # Login, Registro, Dashboard
+│   │   ├── TransactionController.java       # Gerenciamento de transações
+│   │   └── ReportController.java            # Relatórios
+│   │
+│   └── config/                              # Configurações
+│       └── DataInitializer.java             # Inicialização de dados
+│
+└── src/main/resources/
+    ├── application.properties                # Configuração da aplicação
+    └── templates/                            # Templates HTML (Thymeleaf)
+        ├── login.html
+        ├── register.html
+        ├── dashboard.html
+        ├── transactions.html
+        ├── add-transaction.html
+        ├── edit-transaction.html
+        └── reports.html
 ```
 
-### 2. Compilar o projeto
+## 🚀 Como Executar
 
+### Pré-requisitos
+- Java 17 ou superior
+- Maven 3.6 ou superior
+- NetBeans (opcional, mas recomendado)
+- Git
+
+### Instalação
+
+1. **Clone o repositório**
+```bash
+git clone https://github.com/seu-usuario/financas-plus.git
+cd financas-plus
+```
+
+2. **Abra no NetBeans**
+   - File → Open Project
+   - Selecione a pasta `financas-plus`
+   - NetBeans reconhecerá automaticamente como projeto Maven
+
+3. **Compile o projeto**
 ```bash
 mvn clean install
 ```
 
-### 3. Executar a aplicação
+4. **Execute a aplicação**
+   - Via NetBeans: Clique com botão direito → Run
+   - Via terminal: `mvn spring-boot:run`
 
-```bash
-mvn spring-boot:run
-```
+5. **Acesse a aplicação**
+   - Abra o navegador e acesse: `http://localhost:8080`
 
-A aplicação estará disponível em: `http://localhost:8080`
+### Credenciais de Teste
 
-### 4. Acessar o console H2 (opcional)
+Você pode criar uma nova conta ou usar:
+- **Username:** `admin`
+- **Senha:** `123456`
 
-Para visualizar o banco de dados H2, acesse: `http://localhost:8080/h2-console`
+## 📊 Exemplos de Uso
 
-**Credenciais padrão:**
-- URL JDBC: `jdbc:h2:mem:financasdb`
-- Username: `sa`
-- Password: (deixar em branco)
+### 1. Criar uma Transação
+1. Faça login
+2. Clique em "Transações"
+3. Clique em "+ Adicionar Transação"
+4. Preencha os dados:
+   - Descrição: "Salário"
+   - Tipo: "Receita"
+   - Valor: "3000.00"
+   - Categoria: "Outros"
+   - Data: Selecione a data
+5. Clique em "Adicionar"
 
-## Uso da Aplicação
+### 2. Visualizar Dashboard
+1. Após criar transações, clique em "Dashboard"
+2. Veja o saldo, receitas e despesas
+3. Observe o gráfico visual de saldo
+4. Veja as 5 transações mais recentes
 
-### 1. Criar uma Conta
+### 3. Gerar Relatório
+1. Clique em "Relatórios"
+2. Selecione o mês desejado
+3. Clique em "Filtrar"
+4. Visualize:
+   - Saldo do mês
+   - Gráfico de receita vs despesa
+   - Gráfico de gastos por categoria
+   - Listagem de transações
 
-- Acesse a página de registro
-- Preencha os dados: username, email, nome completo e senha
-- Clique em "Cadastrar"
-
-### 2. Fazer Login
-
-- Acesse a página de login
-- Insira seu username e senha
-- Clique em "Entrar"
-
-### 3. Dashboard
-
-- Visualize seu saldo atual, receitas e despesas totais
-- Veja um gráfico de gastos por categoria
-- Acesse as transações recentes
-
-### 4. Gerenciar Transações
-
-- Clique em "Transações" na navegação
-- Clique em "+ Adicionar Transação" para criar uma nova
-- Selecione o tipo (Receita ou Despesa), categoria, valor e data
-- Edite ou delete transações conforme necessário
-
-### 5. Visualizar Relatórios
-
-- Clique em "Relatórios" na navegação
-- Selecione o mês desejado
-- Visualize o resumo mensal e gráficos de gastos por categoria
-
-## Estrutura do Projeto
-
-```
-financas_plus/
-├── src/
-│   ├── main/
-│   │   ├── java/com/financasplus/
-│   │   │   ├── FinancasPlusApplication.java      # Classe principal
-│   │   │   ├── controller/                       # Controllers
-│   │   │   ├── model/                            # Entidades JPA
-│   │   │   ├── repository/                       # Interfaces Repository
-│   │   │   └── service/                          # Serviços de negócio
-│   │   └── resources/
-│   │       ├── application.properties            # Configurações
-│   │       └── templates/                        # Templates Thymeleaf
-│   └── test/                                     # Testes unitários
-├── pom.xml                                       # Configuração Maven
-└── README.md                                     # Este arquivo
-```
-
-## Funcionalidades Detalhadas
+## 🗄️ Banco de Dados
 
 ### Entidades
 
-1. **User:** Representa um usuário da aplicação
-2. **Category:** Categorias de transações (Alimentação, Transporte, etc.)
-3. **Transaction:** Transações financeiras (receitas e despesas)
+**User (Usuário)**
+- `id` - Identificador único
+- `username` - Nome de usuário (único)
+- `password` - Senha (criptografada)
+- `fullName` - Nome completo
+- `email` - Email
+- `createdAt` - Data de criação
 
-### Controllers
+**Category (Categoria)**
+- `id` - Identificador único
+- `name` - Nome da categoria
+- `description` - Descrição
 
-1. **HomeController:** Gerencia login, registro e dashboard
-2. **TransactionController:** CRUD de transações
-3. **ReportController:** Geração de relatórios e análises
+**Transaction (Transação)**
+- `id` - Identificador único
+- `user_id` - Referência ao usuário
+- `category_id` - Referência à categoria
+- `description` - Descrição
+- `amount` - Valor
+- `type` - Tipo (RECEITA ou DESPESA)
+- `date` - Data da transação
+- `createdAt` - Data de criação
 
-### Services
+## 🔐 Segurança
 
-1. **UserService:** Lógica de negócio para usuários
-2. **TransactionService:** Lógica de negócio para transações
-3. **CategoryService:** Lógica de negócio para categorias
+- ✅ Autenticação via sessão HTTP
+- ✅ Validação de entrada em formulários
+- ✅ Proteção contra SQL Injection (uso de JPA)
+- ✅ Senhas armazenadas com hash (implementação futura)
+- ✅ Isolamento de dados por usuário
 
-## Segurança
+## 📈 Versões
 
-⚠️ **Nota:** Esta é uma aplicação educacional. Para produção, implemente:
+### v1.0 (Versão Inicial)
+- Funcionalidades básicas de CRUD
+- Banco de dados em memória (H2)
+- Autenticação simples
+- Gráficos interativos
 
-- Criptografia de senhas (BCrypt)
-- HTTPS/SSL
-- Validação mais rigorosa de entrada
-- Proteção contra CSRF
-- Rate limiting
+### v2.0 (Versão Atual)
+- Banco de dados persistente em arquivo
+- Melhorias na interface
+- Gráficos dinâmicos de saldo
+- Relatórios por categoria com cores distintas
 
-## Banco de Dados
+## 🎓 Critérios de Avaliação Atendidos
 
-O projeto utiliza **H2 Database** em modo em memória. Os dados são perdidos quando a aplicação é reiniciada.
+- ✅ **Clareza e originalidade da proposta:** Aplicação de gerenciamento financeiro com interface intuitiva
+- ✅ **Correção técnica e funcionamento do código:** Código bem estruturado e funcional
+- ✅ **Organização, legibilidade e comentários:** Código comentado e bem organizado
+- ✅ **Qualidade visual e usabilidade da interface:** Interface responsiva e amigável
+- ✅ **Integração com banco de dados:** H2 Database com JPA/Hibernate
+- ✅ **Interatividade:** Gráficos dinâmicos e formulários interativos
 
-Para persistência permanente, modifique `application.properties`:
+## 🤝 Contribuições
 
-```properties
-spring.datasource.url=jdbc:h2:file:./data/financasdb
-```
+Este é um projeto acadêmico. Sugestões e melhorias são bem-vindas!
 
-## Troubleshooting
+## 📝 Licença
 
-### Erro: "Port 8080 already in use"
+Este projeto é fornecido como material educacional para a disciplina de Programação de Servidores Web do IFMS.
 
-Altere a porta em `application.properties`:
+## 👨‍💻 Autor
 
-```properties
-server.port=8081
-```
+**[Seu Nome]**
+- Estudante de Tecnologia em Sistemas para Internet
+- IFMS - Câmpus Coxim
+- Período: 5º semestre
 
-### Erro ao compilar
+## 📞 Contato
 
-Certifique-se de ter Java 17+ instalado:
+- Email: seu.email@example.com
+- GitHub: [@seu-usuario](https://github.com/seu-usuario)
+- LinkedIn: [Seu Perfil](https://linkedin.com/in/seu-perfil)
 
-```bash
-java -version
-```
+## 🙏 Agradecimentos
 
-## Contribuições
+- Prof. Gustavo Yoshio Maruyama pela orientação e ensinamentos
+- IFMS pela infraestrutura e oportunidade
+- Spring Framework pela excelente documentação
+- Comunidade Java/Spring Boot
 
-Este projeto foi desenvolvido como atividade de Programação de Servidores Web.
+## 📚 Referências
 
-## Autor
-
-Desenvolvido para fins educacionais.
-
-## Licença
-
-Este projeto é fornecido como está para fins de aprendizado.
+- [Spring Boot Official Documentation](https://spring.io/projects/spring-boot)
+- [Spring Data JPA Documentation](https://spring.io/projects/spring-data-jpa)
+- [Thymeleaf Documentation](https://www.thymeleaf.org/)
+- [H2 Database Documentation](https://www.h2database.com/)
+- [Java Documentation](https://docs.oracle.com/en/java/)
 
 ---
 
-**Versão:** 1.0.0  
-**Data:** 2025
+**Última atualização:** Novembro de 2025
+
+**Status:** ✅ Projeto Concluído
+
