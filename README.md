@@ -265,19 +265,6 @@ Este é um projeto acadêmico. Sugestões e melhorias são bem-vindas!
 
 Este projeto é fornecido como material educacional para a disciplina de Programação de Servidores Web do IFMS.
 
-## 👨‍💻 Autor
-
-**[Seu Nome]**
-- Estudante de Tecnologia em Sistemas para Internet
-- IFMS - Câmpus Coxim
-- Período: 5º semestre
-
-## 📞 Contato
-
-- Email: seu.email@example.com
-- GitHub: [@seu-usuario](https://github.com/seu-usuario)
-- LinkedIn: [Seu Perfil](https://linkedin.com/in/seu-perfil)
-
 ## 🙏 Agradecimentos
 
 - Prof. Gustavo Yoshio Maruyama pela orientação e ensinamentos
