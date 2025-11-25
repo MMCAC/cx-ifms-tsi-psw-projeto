@@ -1,0 +1,15 @@
+com\financasplus\model\Category.class
+com\financasplus\service\TransactionService.class
+com\financasplus\service\CategoryService.class
+com\financasplus\model\User.class
+com\financasplus\controller\TransactionController.class
+com\financasplus\repository\UserRepository.class
+com\financasplus\controller\HomeController.class
+com\financasplus\FinancasPlusApplication.class
+com\financasplus\repository\TransactionRepository.class
+com\financasplus\config\DataInitializer.class
+com\financasplus\service\UserService.class
+com\financasplus\controller\ReportController.class
+com\financasplus\model\Transaction.class
+com\financasplus\model\Transaction$TransactionType.class
+com\financasplus\repository\CategoryRepository.class

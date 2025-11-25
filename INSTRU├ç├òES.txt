@@ -1,0 +1,169 @@
+================================================================================
+                    FINANÇAS+ - INSTRUÇÕES DE EXECUÇÃO
+================================================================================
+
+REQUISITOS:
+- Java 17 ou superior instalado
+- Maven 3.6 ou superior instalado
+- NetBeans (opcional, mas recomendado)
+
+================================================================================
+OPÇÃO 1: EXECUTAR VIA LINHA DE COMANDO
+================================================================================
+
+1. Abra o terminal/prompt de comando
+2. Navegue até a pasta do projeto:
+   cd caminho/para/financas_plus
+
+3. Compile o projeto:
+   mvn clean install
+
+4. Execute a aplicação:
+   mvn spring-boot:run
+
+5. Abra o navegador e acesse:
+   http://localhost:8080
+
+================================================================================
+OPÇÃO 2: EXECUTAR VIA NETBEANS
+================================================================================
+
+1. Abra o NetBeans
+2. Clique em File → Open Project
+3. Selecione a pasta "financas_plus"
+4. NetBeans reconhecerá como projeto Maven automaticamente
+5. Clique com botão direito no projeto → Run
+6. A aplicação abrirá em http://localhost:8080
+
+================================================================================
+PRIMEIRO ACESSO
+================================================================================
+
+1. Você verá a página de login
+2. Clique em "Cadastre-se aqui" para criar uma conta
+3. Preencha os dados:
+   - Username: (escolha um nome de usuário)
+   - Email: (seu email)
+   - Nome Completo: (seu nome)
+   - Senha: (escolha uma senha)
+4. Clique em "Cadastrar"
+5. Faça login com suas credenciais
+
+================================================================================
+FUNCIONALIDADES
+================================================================================
+
+DASHBOARD:
+- Visualiza o saldo atual
+- Mostra total de receitas e despesas
+- Exibe gráfico de gastos por categoria
+- Lista as transações recentes
+
+TRANSAÇÕES:
+- Clique em "Transações" para listar todas as transações
+- Clique em "+ Adicionar Transação" para criar uma nova
+- Selecione o tipo (Receita ou Despesa)
+- Escolha a categoria
+- Insira a descrição, valor e data
+- Clique em "Adicionar"
+- Você pode editar ou deletar transações da lista
+
+RELATÓRIOS:
+- Clique em "Relatórios"
+- Selecione o mês desejado
+- Visualize o resumo do mês
+- Veja o gráfico de gastos por categoria
+- Analise as transações do período
+
+================================================================================
+CATEGORIAS PADRÃO
+================================================================================
+
+As seguintes categorias são criadas automaticamente:
+- Alimentação
+- Transporte
+- Lazer
+- Contas Fixas
+- Saúde
+- Educação
+- Outros
+
+================================================================================
+BANCO DE DADOS
+================================================================================
+
+O projeto usa H2 Database em memória. Os dados são perdidos quando a
+aplicação é reiniciada.
+
+Para acessar o console H2 (opcional):
+- URL: http://localhost:8080/h2-console
+- JDBC URL: jdbc:h2:mem:financasdb
+- Username: sa
+- Password: (deixar em branco)
+
+================================================================================
+SOLUÇÃO DE PROBLEMAS
+================================================================================
+
+ERRO: "Port 8080 already in use"
+SOLUÇÃO: Modifique a porta em src/main/resources/application.properties
+         server.port=8081
+
+ERRO: "Java version not supported"
+SOLUÇÃO: Certifique-se de ter Java 17 ou superior
+         Digite no terminal: java -version
+
+ERRO: "Maven not found"
+SOLUÇÃO: Instale Maven ou adicione ao PATH do sistema
+
+ERRO: "Build failure"
+SOLUÇÃO: Execute: mvn clean install -U
+
+================================================================================
+ESTRUTURA DO PROJETO
+================================================================================
+
+financas_plus/
+├── pom.xml                              # Configuração Maven
+├── README.md                            # Documentação
+├── INSTRUÇÕES.txt                       # Este arquivo
+├── src/main/java/com/financasplus/
+│   ├── FinancasPlusApplication.java     # Classe principal
+│   ├── controller/                      # Controllers
+│   │   ├── HomeController.java
+│   │   ├── TransactionController.java
+│   │   └── ReportController.java
+│   ├── model/                           # Entidades
+│   │   ├── User.java
+│   │   ├── Category.java
+│   │   └── Transaction.java
+│   ├── repository/                      # Repositories
+│   │   ├── UserRepository.java
+│   │   ├── CategoryRepository.java
+│   │   └── TransactionRepository.java
+│   └── service/                         # Services
+│       ├── UserService.java
+│       ├── CategoryService.java
+│       └── TransactionService.java
+└── src/main/resources/
+    ├── application.properties           # Configurações
+    └── templates/                       # Templates HTML
+        ├── login.html
+        ├── register.html
+        ├── dashboard.html
+        ├── transactions.html
+        ├── add-transaction.html
+        ├── edit-transaction.html
+        └── reports.html
+
+================================================================================
+DÚVIDAS OU PROBLEMAS?
+================================================================================
+
+1. Verifique se Java 17+ está instalado: java -version
+2. Verifique se Maven está instalado: mvn -version
+3. Tente limpar o cache: mvn clean
+4. Recompile: mvn install
+5. Execute novamente: mvn spring-boot:run
+
+================================================================================

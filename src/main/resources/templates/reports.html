@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios - Finanças+</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .navbar-nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav a:hover {
+            color: #667eea;
+        }
+
+        .navbar-nav a.active {
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+        }
+
+        .navbar-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn-logout {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-logout:hover {
+            background: #764ba2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .month-selector {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .month-selector label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .month-selector input[type="month"] {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .month-selector button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .month-selector button:hover {
+            background: #764ba2;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-income {
+            border-left: 4px solid #4CAF50;
+        }
+
+        .card-income .card-value {
+            color: #4CAF50;
+        }
+
+        .card-expense {
+            border-left: 4px solid #f44336;
+        }
+
+        .card-expense .card-value {
+            color: #f44336;
+        }
+
+        .card-balance {
+            border-left: 4px solid #667eea;
+        }
+
+        .card-balance .card-value {
+            color: #667eea;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .transactions-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .transactions-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-info {
+            flex: 1;
+        }
+
+        .transaction-description {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .transaction-category {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .transaction-amount {
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        .transaction-amount.income {
+            color: #4CAF50;
+        }
+
+        .transaction-amount.expense {
+            color: #f44336;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">Finanças+</div>
+        <ul class="navbar-nav">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/transactions">Transações</a></li>
+            <li><a href="/reports" class="active">Relatórios</a></li>
+        </ul>
+        <div class="navbar-right">
+            <span th:text="'Olá, ' + ${user.fullName}"></span>
+            <a href="/logout" class="btn-logout">Sair</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="page-title">Relatórios</h1>
+
+        <!-- Month Selector -->
+        <div class="month-selector">
+            <label for="monthInput">Selecione o mês:</label>
+            <form method="GET" action="/reports" style="display: flex; gap: 10px;">
+                <input type="month" id="monthInput" name="month" th:value="${currentMonth}">
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="dashboard-grid">
+            <div class="card card-balance">
+                <div class="card-title">Saldo do Mês</div>
+                <div class="card-value" th:text="'R$ ' + ${#numbers.formatDecimal(monthBalance, 1, 'COMMA', 2, 'POINT')}"></div>
+            </div>
+            <div class="card card-income">
+                <div class="card-title">Receitas</div>
+                <div class="card-value" th:text="'R$ ' + ${#numbers.formatDecimal(monthIncome, 1, 'COMMA', 2, 'POINT')}"></div>
+            </div>
+            <div class="card card-expense">
+                <div class="card-title">Despesas</div>
+                <div class="card-value" th:text="'R$ ' + ${#numbers.formatDecimal(monthExpenses, 1, 'COMMA', 2, 'POINT')}"></div>
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <!-- Saldo Visual Chart -->
+            <div class="chart-container">
+                <div class="chart-title">Saldo Visual do Mês</div>
+                <div class="chart-wrapper">
+                    <canvas id="monthBalanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Gastos por Categoria Chart -->
+            <div class="chart-container">
+                <div class="chart-title">Gastos por Categoria</div>
+                <div class="chart-wrapper">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions -->
+        <div class="transactions-container">
+            <div class="transactions-title">Transações do Mês</div>
+            
+            <div th:if="${monthTransactions.isEmpty()}" class="empty-message">
+                <p>Nenhuma transação neste mês</p>
+            </div>
+
+            <div th:unless="${monthTransactions.isEmpty()}">
+                <div th:each="transaction : ${monthTransactions}">
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <div class="transaction-description" th:text="${transaction.description}"></div>
+                            <div class="transaction-category" th:text="${transaction.category.name}"></div>
+                        </div>
+                        <div class="transaction-amount" 
+                             th:classappend="${transaction.type.name() == 'RECEITA' ? 'income' : 'expense'}"
+                             th:text="${(transaction.type.name() == 'RECEITA' ? '+' : '-') + ' R$ ' + #numbers.formatDecimal(transaction.amount, 1, 'COMMA', 2, 'POINT')}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        // Dados do saldo do mês vindo do backend
+        const monthIncomeAmount = /*[[${monthIncomeAmount}]]*/ 0;
+        const monthExpenseAmount = /*[[${monthExpenseAmount}]]*/ 0;
+
+        // Dados de categorias
+        const categoryNames = /*[[${categoryNames}]]*/ [];
+        const categoryValuesStr = /*[[${categoryValues}]]*/ [];
+        
+        // Converter valores para números
+        const categoryValues = categoryValuesStr.map(v => parseFloat(v));
+
+        // Cores para cada categoria
+        const categoryColors = {
+            'Alimentação': '#FF6B6B',
+            'Transporte': '#4ECDC4',
+            'Lazer': '#FFE66D',
+            'Contas Fixas': '#95E1D3',
+            'Saúde': '#C7CEEA',
+            'Educação': '#B5EAD7',
+            'Outros': '#D4A5A5'
+        };
+
+        // Gerar cores baseadas no nome da categoria
+        const colors = categoryNames.map(name => categoryColors[name] || '#999999');
+
+        // Gráfico de Saldo Visual
+        const ctxBalance = document.getElementById('monthBalanceChart').getContext('2d');
+        const monthBalanceChart = new Chart(ctxBalance, {
+            type: 'doughnut',
+            data: {
+                labels: ['Receitas', 'Despesas'],
+                datasets: [{
+                    data: [monthIncomeAmount, monthExpenseAmount],
+                    backgroundColor: [
+                        '#4CAF50',  // Verde para receitas
+                        '#f44336'   // Vermelho para despesas
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = 'R$ ' + context.parsed.toFixed(2).replace('.', ',');
+                                const total = monthIncomeAmount + monthExpenseAmount;
+                                const percentage = total > 0 ? ((context.parsed / total) * 100).toFixed(1) : 0;
+                                return label + ': ' + value + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Categorias
+        const ctxCategory = document.getElementById('categoryChart').getContext('2d');
+        const categoryChart = new Chart(ctxCategory, {
+            type: 'doughnut',
+            data: {
+                labels: categoryNames.length > 0 ? categoryNames : ['Sem dados'],
+                datasets: [{
+                    data: categoryValues.length > 0 ? categoryValues : [100],
+                    backgroundColor: categoryNames.length > 0 ? colors : ['#cccccc'],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = 'R$ ' + context.parsed.toFixed(2).replace('.', ',');
+                                const total = categoryValues.reduce((a, b) => a + b, 0);
+                                const percentage = total > 0 ? ((context.parsed / total) * 100).toFixed(1) : 0;
+                                return label + ': ' + value + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
